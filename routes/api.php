@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/Film/{id}', [FilmController::class, "detail"]);
 Route::get('/Acteur/{id}', [ActeurController::class, "detail"]);
 
-Route::apiResource("Film", FilmController::class); // Les routes "films." de l'API
+Route::apiResource("Film", FilmController::class);
 Route::apiResource("Acteur", ActeurController::class); 
 
 Route::get('/user', function (Request $request) {

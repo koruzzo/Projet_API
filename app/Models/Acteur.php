@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Acteur extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom','prenom','film_id'];
+    protected $fillable = ['Nom','Prenom','film_id'];
 
 
     public function films()
     {
-        return $this->hasMany(Film::class);
+        return $this->belongsTo(Film::class);
     }
 
 }

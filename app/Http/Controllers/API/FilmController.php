@@ -14,7 +14,7 @@ class FilmController extends Controller
     public function index()
     {
            // On récupère tous les film
-    $films = Film::all();
+    $films = Film::with('acteurs')->get();
 
     // On retourne les informations des films en JSON
     return response()->json($films);
@@ -29,7 +29,6 @@ class FilmController extends Controller
         $film->title = $request->title;
         $film->content = $request->content;
         $film->release_date = $request->release_date;
-
         $film->save();
 
     // On retourne les informations du nouveau film en JSON
@@ -39,10 +38,10 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Film $films)
+    public function show(Film $film)
     {
         // On retourne les informations du film en JSON
-    return response()->json($films);
+    return response()->json(Film::with('acteurs')->where('film_id', '=', $film->id)->get());
     }
 
     /**
@@ -89,7 +88,7 @@ class FilmController extends Controller
 
     function detail ($id) 
     {
-            return response()->json(Film::find($id));
+            return response()->json(Film::with('acteurs')->where('id', '=', $id)->get());
     }
 
 }
