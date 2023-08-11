@@ -13,7 +13,7 @@ class Film extends Model
     protected $fillable = ['title','content','release_date'];
     
     
-public function Acteurs()
+public function acteurs()
 {
     return $this->hasMany(Acteur::class);
 }

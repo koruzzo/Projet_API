@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('films', function (Blueprint $table) {
-            $table->id()->onDelete('cascade');
+            $table->id();
             $table->string('title');
             $table->string('content');
             $table->date('release_date');
@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
+    
     public function down(): void
     {
         Schema::dropIfExists('films');

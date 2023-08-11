@@ -1,13 +1,10 @@
 <?php
-
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Acteur;
 use App\Models\Film;
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Acteur>
- */
+
 class ActeurFactory extends Factory
 {
     /**
@@ -18,11 +15,13 @@ class ActeurFactory extends Factory
     public function definition(): array
     {
         return [
-            'nom' => $this->faker->title(),
-            'prenom' => $this->faker->name(),
+            'Nom' => $this->faker->title(),
+            'Prenom' => $this->faker->name(), 
             'film_id' => function () {
                 return Film::inRandomOrder()->first()->id;
             },
         ];
     }
 }
+
+

@@ -11,9 +11,9 @@ class Acteur extends Model
     protected $fillable = ['Nom','Prenom','film_id'];
 
 
-    public function films()
+    public function film()
     {
-        return $this->belongsTo(Film::class);
+        return $this->belongsTo(Film::class, 'film_id');
     }
 
 }

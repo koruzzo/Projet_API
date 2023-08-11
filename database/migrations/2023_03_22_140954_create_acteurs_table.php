@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('Nom');
             $table->string('Prenom');
-            $table->foreignId('film_id');
+            $table->foreignId('film_id')->constrained('films'); // Utilisez la méthode 'constrained' pour définir la clé étrangère
             $table->timestamps();
         });
     }

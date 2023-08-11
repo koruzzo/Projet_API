@@ -8,21 +8,12 @@ use Illuminate\Http\Request;
 
 class FilmController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-           // On récupère tous les film
-    $films = Film::with('acteurs')->get();
-
-    // On retourne les informations des films en JSON
-    return response()->json($films);
+        $film = Film::with('acteurs')->get();
+        return response()->json($film);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $film = new Film();
@@ -30,65 +21,37 @@ class FilmController extends Controller
         $film->content = $request->content;
         $film->release_date = $request->release_date;
         $film->save();
-
-    // On retourne les informations du nouveau film en JSON
-    return response()->json($film);
+        return response()->json($film);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Film $film)
+    public function detail($id)
     {
-        // On retourne les informations du film en JSON
-    return response()->json(Film::with('acteurs')->where('film_id', '=', $film->id)->get());
+        return response()->json(Film::with('acteurs')->where('id', '=', $id)->get());
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-    $films = Film::find($id);
-            // La validation de données
-    $this->validate($request, [
-        'title' => 'required|max:100',
-        'content' => 'required|max:100',
-        'release_date' => 'date_format:Y-m-d'
-    ]);
-
-    // On modifie les informations du film
-    $films->update([
-        "title" => $request->title,
-        "content" => $request->content,
-        "release_date" => $request->release_date
-    ]);
-
-    // On retourne la réponse JSON
-    return response()->json();
+        $film = Film::find($id);
+        $this->validate($request, [
+            'title' => 'required|max:100',
+            'content' => 'required|max:100',
+            'release_date' => 'date_format:Y-m-d'
+        ]);
+        $film->update([
+            "title" => $request->title,
+            "content" => $request->content,
+            "release_date" => $request->release_date
+        ]);
+        $film->save();
+        return response()->json($film, 201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy($id)
     {
-    $films = Film::find($id);
-            // On supprime le film
-    $films->delete();
+        $film = Film::find($id);
+        $film->delete();
 
-    // On retourne la réponse JSON
-    return response()->json();
+        return response()->json(null, 204);
     }
-
-    function liste () 
-    {
-        return response ()->json(Film::all());
-    }
-
-    function detail ($id) 
-    {
-            return response()->json(Film::with('acteurs')->where('id', '=', $id)->get());
-    }
-
 }
+
